@@ -1,12 +1,18 @@
+@Library['Jenkins_shared_library']_
+
 pipeline{
     agent any
     stages{
         stage("Git checkout"){
             steps{
                 script{
-                    git branch: "master", url: "https://github.com/sgoyal696/Java_Project.git"
+                    gitCheckout(
+                        branch: 'master'
+                        url: "https://github.com/sgoyal696/Java_Project.git"
+                        )   
                 }
             }
         }
     }
 }
+
