@@ -1,13 +1,15 @@
 @Library('Jenkins-shared-library')_
 
 pipeline{
+    
     agent any
-    parameters(
+    
+    parameters{
     choice (name:'action' ,choice:'create\ndelte' ,description:'choose create/Destroy')
-)
+    }
     stages{
-        when{expression{param.action == 'create'}}
         stage("Git checkout"){
+            when{expression{param.action == 'create'}}
             steps{
                 script{
                     gitCheckout(
