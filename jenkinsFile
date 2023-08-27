@@ -39,7 +39,16 @@ pipeline{
                    mvnUnitTest()
                }
             }
-        }      
+        }  
+        stage('Static code Analysis maven'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   staticCodeAnalysis()
+               }
+            }
+        }    
     }
 }
 
