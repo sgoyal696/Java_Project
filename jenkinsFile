@@ -1,36 +1,39 @@
 @Library('Jenkins-shared-library')_
 
-pipeline{
-    
+pipeline {
     agent any
-    
-    parameters{
-    choice (name:'action' ,choices:'create\ndelte' ,description:'choose create/Destroy')
+
+    parameters {
+        choice(name:'action' ,choices:'create\ndelete' ,description:'choose create/Destroy')
     }
-    stages{
-        stage("Git checkout"){
-                when{expression{param.action == 'create'}}
-            steps{
-                script{
+    stages {
+        stage('Git checkout') {
+                when { expression { param.action == 'create' } }
+
+            steps {
+                script {
                     gitCheckout(
-                        branch: "master",
-                        url: "https://github.com/sgoyal696/Java_Project.git"
+                        branch: 'master',
+                        url: 'https://github.com/sgoyal696/Java_Project.git'
                         )
                 }
             }
-        } 
-        stage("Unit testing"){
-                when{expression{param.action == 'create'}}
-            steps{
-                script{
+        }
+        stage('Unit testing') {
+                when { expression { param.action == 'create' } }
+
+            steps {
+                script {
                     mvnTest()
                 }
             }
         }
-        stage("Integration testing"){
-                when{expression{param.action == 'create'}}
-            steps{
-                script{
+
+        stage('Integration testing') {
+                when { expression { param.action == 'create' } }
+
+            steps {
+                script {
                     mvnUnitTest()
                 }
             }
