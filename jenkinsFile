@@ -57,6 +57,14 @@ pipeline{
                    qualityGateStatus(SonarqubeCredentialsId )
                }
             }
+        } 
+        stage('Maven Build'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   mvnBuild()
+               }
+            }
         }   
     }
 }
