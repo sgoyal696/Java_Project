@@ -40,7 +40,7 @@ pipeline{
                }
             }
         }  
-        stage('Static code Analysis maven'){
+        stage('Static code Analysis sonarqube'){
          when { expression {  params.action == 'create' } }
             steps{
                script{
@@ -48,7 +48,16 @@ pipeline{
                    staticCodeAnalysis(SonarqubeCredentialsId )
                }
             }
-        }    
+        } 
+        stage('Quality gate analysis'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   def SonarqubeCredentialsId = 'sonarqube'
+                   qualityGateStatus(SonarqubeCredentialsId )
+               }
+            }
+        }   
     }
 }
 
